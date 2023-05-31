@@ -1,44 +1,44 @@
 // CategoryListScreen.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-
-import { fetchCategories, deleteCategory } from '../services/api'; // Vous devez implémenter ces fonctions dans votre fichier api
+import { Button, FlatList, View, Text, StyleSheet } from 'react-native';
+import { fetchCategories, deleteCategory } from '../services/api';
 
 export default function CategoryListScreen({ navigation }) {
   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    async function loadCategories() {
-      const data = await fetchCategories();
-      setCategories(data);
-    }
-
-    loadCategories();
-  }, []);
-
-  const handleDelete = async (category_name) => {
-    await deleteCategory(category_name);
-    // Refresh the list after deleting
+  const loadCategories = async () => {
     const data = await fetchCategories();
     setCategories(data);
   };
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', loadCategories);
+    loadCategories();
+
+    // Clean up: remove the listener when this component is destroyed
+    return unsubscribe;
+  }, [navigation]);
+
+  const handleDelete = async (category_name) => {
+    await deleteCategory(category_name);
+    // Refresh the category list after a category is deleted
+    await loadCategories();
+  };
+
   return (
     <View style={styles.container}>
-      <Button title="Ajouter une catégorie" onPress={() => navigation.navigate('AddCategory')} />
-      <FlatList
+      <FlatList 
         data={categories}
+        keyExtractor={(item) => item.category_name}
         renderItem={({ item }) => (
-          <View style={styles.listItem}>
-            <Text style={styles.category}>{item.category_name}</Text>
-            <View style={styles.buttonsContainer}>
-              <Button title="Détails" onPress={() => navigation.navigate('CategoryDetail', { category_name: item.category_name })} />
-              <Button title="Supprimer" onPress={() => handleDelete(item.category_name)} />
-            </View>
+          <View>
+            <Text>{item.category_name}</Text>
+            <Button title="Details" onPress={() => navigation.navigate('CategoryDetail', { category_name: item.category_name })} />
+            <Button title="Delete" onPress={() => handleDelete(item.category_name)} />
           </View>
         )}
-        keyExtractor={(item) => item.category_name}
       />
+      <Button title="Add Category" onPress={() => navigation.navigate('AddCategory')} />
     </View>
   );
 }

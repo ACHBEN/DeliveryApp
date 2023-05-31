@@ -33,7 +33,7 @@ export default function DeliverymanDetailScreen({ route, navigation }) {
       <Text style={styles.detail}>Date de recrutement : {deliveryman.recruitment_date}</Text>
       <Text style={styles.detail}>Numéro de téléphone : {deliveryman.Num_tel}</Text>
       <Text style={styles.detail}>Catégorie : {deliveryman.category_name}</Text>
-      <Button title="Modifier" onPress={() => navigation.navigate('EditDeliveryman', { id: deliveryman.coursier_id })} />
+      <Button title="Modifier" onPress={() => navigation.navigate('CategoryList', { coursier_id: deliveryman.coursier_id })} />
       <Button title="Supprimer" onPress={handleDelete} />
     </View>
   );

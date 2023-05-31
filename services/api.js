@@ -70,5 +70,9 @@ export async function deleteCategory(category_name) {
   await axios.delete(`${API_URL}/categories/${category_name}`);
 }
 
+export async function addCategory(category) {
+  const response = await axios.post(`${API_URL}/categories`, category);
+  return response.data;
+}
 
 
