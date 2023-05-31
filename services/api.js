@@ -34,3 +34,27 @@ export async function updateOrder(id, order) {
 export async function deleteOrder(id) {
   await axios.delete(`${API_URL}/orders/${id}`);
 }
+
+export async function fetchDeliverymen() {
+  const response = await axios.get(`${API_URL}/coursiers/list`);
+  return response.data;
+}
+
+export async function fetchDeliveryman(id) {
+  const response = await axios.get(`${API_URL}/coursiers/find/${id}`);
+  return response.data;
+}
+
+export async function addDeliveryman(deliveryman) {
+  await axios.post(`${API_URL}/coursiers`, deliveryman);
+}
+
+export async function updateDeliveryman(id, deliveryman) {
+  await axios.put(`${API_URL}/coursiers/${id}`, deliveryman);
+}
+
+export async function deleteDeliveryman(id) {
+  await axios.delete(`${API_URL}/coursiers/${id}`);
+}
+
+
