@@ -28,8 +28,12 @@ export default function DeliverymanDetailScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.deliverymanName}>{deliveryman.name}</Text>
-      <Button title="Modifier" onPress={() => navigation.navigate('EditDeliveryman', { id: deliveryman.id })} />
+      <Text style={styles.detail}>Nom : {deliveryman.name}</Text>
+      <Text style={styles.detail}>Adresse : {deliveryman.adress}</Text>
+      <Text style={styles.detail}>Date de recrutement : {deliveryman.recruitment_date}</Text>
+      <Text style={styles.detail}>Numéro de téléphone : {deliveryman.Num_tel}</Text>
+      <Text style={styles.detail}>Catégorie : {deliveryman.category_name}</Text>
+      <Button title="Modifier" onPress={() => navigation.navigate('EditDeliveryman', { id: deliveryman.coursier_id })} />
       <Button title="Supprimer" onPress={handleDelete} />
     </View>
   );
@@ -40,9 +44,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 10,
   },
-  deliverymanName: {
-    fontSize: 24,
-    marginBottom: 20,
+  detail: {
+    fontSize: 18,
+    marginBottom: 10,
   },
 });
