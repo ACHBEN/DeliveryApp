@@ -56,5 +56,19 @@ export async function updateDeliveryman(id, deliveryman) {
 export async function deleteDeliveryman(id) {
   await axios.delete(`${API_URL}/coursiers/${id}`);
 }
+export async function fetchCategories() {
+  const response = await axios.get(`${API_URL}/categories/list`);
+  return response.data;
+}
+
+export async function fetchCategory(category_name) {
+  const response = await axios.get(`${API_URL}/categories/${category_name}`);
+  return response.data;
+}
+
+export async function deleteCategory(category_name) {
+  await axios.delete(`${API_URL}/categories/${category_name}`);
+}
+
 
 

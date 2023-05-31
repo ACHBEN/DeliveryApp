@@ -12,6 +12,8 @@ import DeliverymanListScreen from '../screens/DeliverymanListScreen';
 import DeliverymanDetailScreen from '../screens/DeliverymanDetailScreen';
 import AddDeliverymanScreen from '../screens/AddDeliverymanScreen';
 import EditDeliverymanScreen from '../screens/EditDeliverymanScreen';
+import CategoryDetailScreen from '../screens/CategoryDetailScreen';
+import CategoryListScreen from '../screens/CategoryListScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,7 +30,9 @@ export default function MainNavigator() {
       <Stack.Screen name="DeliverymanDetail" component={DeliverymanDetailScreen} />
       <Stack.Screen name="AddDeliveryman" component={AddDeliverymanScreen} />
       <Stack.Screen name="EditDeliveryman" component={EditDeliverymanScreen} />
+      <Stack.Screen name="CategoryList" component={CategoryListScreen} />
+      <Stack.Screen name="CategoryDetail" component={CategoryDetailScreen} />
+
     </Stack.Navigator>
   );
 }
-

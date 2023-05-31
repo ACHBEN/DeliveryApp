@@ -13,6 +13,10 @@ export default function HomeScreen({ navigation }) {
         title="Voir les coursiers"
         onPress={() => navigation.navigate('DeliverymanList')}
       />
+      <Button
+        title="Voir les catégories"
+        onPress={() => navigation.navigate('CategoryList')}
+      />
     </View>
   );
 }
