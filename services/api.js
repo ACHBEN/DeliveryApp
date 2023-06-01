@@ -1,5 +1,7 @@
 // api.js
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const API_URL = 'http://192.168.1.7:3000/api';
 
@@ -97,23 +99,20 @@ export async function registerUser(user) {
 
 export async function loginUser(login, password) {
   try {
-    // On vérifie d'abord si l'utilisateur existe
     const checkResponse = await axios.post(`${API_URL}/check/`, { login: login, password: password });
     console.log('Response from /check/:', checkResponse);
 
-    // Si la réponse est null, on renvoie false et on peut afficher un message à l'utilisateur
     if (checkResponse.data === null) {
       console.error('Invalid credentials');
       return false;
     }
 
-    // Si l'utilisateur existe, on demande le token
     const loginResponse = await axios.post(`${API_URL}/login`, { login: login, password: password });
     console.log('Response from /login:', loginResponse);
 
     if (loginResponse.data && loginResponse.data.token) {
-      localStorage.setItem('token', loginResponse.data.token);
-      localStorage.setItem('tokenMaxAge', Date.now() + loginResponse.data.maxAge);
+      await AsyncStorage.setItem('token', loginResponse.data.token);
+      await AsyncStorage.setItem('tokenMaxAge', (Date.now() + loginResponse.data.maxAge).toString());
       return true;
     } else {
       console.error('Failed to log in:', loginResponse);
