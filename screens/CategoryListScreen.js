@@ -1,6 +1,6 @@
 // CategoryListScreen.js
 import React, { useEffect, useState } from 'react';
-import { Button, FlatList, View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { fetchCategories, deleteCategory } from '../services/api';
 
 export default function CategoryListScreen({ navigation }) {
@@ -14,14 +14,11 @@ export default function CategoryListScreen({ navigation }) {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', loadCategories);
     loadCategories();
-
-    // Clean up: remove the listener when this component is destroyed
     return unsubscribe;
   }, [navigation]);
 
   const handleDelete = async (category_name) => {
     await deleteCategory(category_name);
-    // Refresh the category list after a category is deleted
     await loadCategories();
   };
 
@@ -31,14 +28,16 @@ export default function CategoryListScreen({ navigation }) {
         data={categories}
         keyExtractor={(item) => item.category_name}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.category_name}</Text>
-            <Button title="Details" onPress={() => navigation.navigate('CategoryDetail', { category_name: item.category_name })} />
-            <Button title="Delete" onPress={() => handleDelete(item.category_name)} />
-          </View>
+          <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('CategoryDetail', { category_name: item.category_name })}>
+            <View style={styles.listItemView}>
+              <Text style={styles.listItemText}>{item.category_name}</Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
-      <Button title="Add Category" onPress={() => navigation.navigate('AddCategory')} />
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('AddCategory')}>
+        <Text style={styles.buttonText}>Ajouter une catégorie</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -46,22 +45,37 @@ export default function CategoryListScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: 50,
+    backgroundColor: '#F8F8F8',
   },
   listItem: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderColor: '#eee',
+    padding: 20,
     borderBottomWidth: 1,
+    borderBottomColor: '#E0E0E0',
+    justifyContent: 'center',
+  },
+  listItemView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  listItemText: {
+    fontSize: 18,
+    flex: 1,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    backgroundColor: '#34A853',
+    marginVertical: 10,
+    borderRadius: 10,
+    marginHorizontal: 20,
     padding: 10,
   },
-  category: {
-    fontSize: 18,
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  buttonText: {
+    fontSize: 20,
+    color: '#FFF',
+    textAlign: 'center',
   },
 });

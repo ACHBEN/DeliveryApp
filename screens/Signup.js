@@ -1,6 +1,6 @@
 // Signup.js
 import React, { useState, useContext } from 'react';
-import { Button, TextInput, View, Alert } from 'react-native';
+import { Button, TextInput, View, Alert, StyleSheet } from 'react-native';
 import { registerUser } from '../services/api';
 import AuthContext from '../AuthContext';
 
@@ -22,21 +22,60 @@ const Signup = ({ navigation }) => {
       const data = await registerUser(user);
 
       Alert.alert('Success', 'Registration successful');
-      setIsAuthenticated(true); // Ajoutez cette ligne
+      setIsAuthenticated(true);
       navigation.navigate('Login');
     } catch (error) {
       Alert.alert('Error', 'Registration failed: ' + error.message);
-    } 
+    }
   };
 
   return (
-    <View>
-      <TextInput placeholder="Login" onChangeText={setLogin} value={login} />
-      <TextInput placeholder="Password" onChangeText={setPassword} value={password} secureTextEntry />
-      <Button title="Signup" onPress={register} />
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Login"
+        onChangeText={setLogin}
+        value={login}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        onChangeText={setPassword}
+        value={password}
+        secureTextEntry
+      />
+      <View style={styles.buttonContainer}>
+        <Button title="Signup" onPress={register} style={styles.button} />
+      </View>
     </View>
   );
 };
 
-export default Signup;
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    backgroundColor: '#F8F8F8',
+  },
+  input: {
+    marginBottom: 20,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#DDD',
+    borderRadius: 5,
+    backgroundColor: '#FFFFFF',
+    color: '#000',
+  },
+  buttonContainer: {
+    marginBottom: 10,
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  button: {
+    backgroundColor: '#4285F4',
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+  },
+});
 
+export default Signup;

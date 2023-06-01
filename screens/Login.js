@@ -1,6 +1,6 @@
 // Login.js
 import React, { useState, useContext } from 'react';
-import { Button, TextInput, View, Alert } from 'react-native';
+import { Button, TextInput, View, Alert, StyleSheet } from 'react-native';
 import { loginUser } from '../services/api';
 import AuthContext from '../AuthContext';
 
@@ -15,10 +15,10 @@ const Login = ({ navigation }) => {
       Alert.alert('Error', 'Both fields are required');
       return;
     }
-  
+
     // API call to login user
     const success = await loginUser(login, password);
-  
+
     // Check if the login was successful
     if (!success) {
       // Login failed, show error message
@@ -34,16 +34,61 @@ const Login = ({ navigation }) => {
     setLogin('');
     setPassword('');
   };
-  
+
   return (
-    <View>
-      <TextInput placeholder="Login" onChangeText={setLogin} value={login} />
-      <TextInput placeholder="Password" onChangeText={setPassword} value={password} secureTextEntry />
-      <Button title="Login" onPress={handleLogin} />
-      <Button title="Signup" onPress={() => navigation.navigate('Signup')} />
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Login"
+        onChangeText={setLogin}
+        value={login}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        onChangeText={setPassword}
+        value={password}
+        secureTextEntry
+      />
+      <View style={styles.buttonContainer}>
+        <Button title="Login" onPress={handleLogin} style={styles.button} />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Signup"
+          onPress={() => navigation.navigate('Signup')}
+          style={styles.button}
+        />
+      </View>
     </View>
   );
 };
 
-export default Login;
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    backgroundColor: '#F8F8F8',
+  },
+  input: {
+    marginBottom: 20,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#DDD',
+    borderRadius: 5,
+    backgroundColor: '#FFFFFF',
+    color: '#000',
+  },
+  buttonContainer: {
+    marginBottom: 10,
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  button: {
+    backgroundColor: '#4285F4',
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+  },
+});
 
+export default Login;
