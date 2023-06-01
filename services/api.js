@@ -1,7 +1,7 @@
 // api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://192.168.1.7:3000/api';
 
 export async function fetchOrders() {
   try {
@@ -28,8 +28,13 @@ export async function addOrder(order) {
 }
 
 export async function updateOrder(id, order) {
-  await axios.put(`${API_URL}/orders/${id}`, order);
+  try {
+    await axios.put(`${API_URL}/orders/${id}`, order);
+  } catch (error) {
+    console.error('Error updating order:', error);
+  }
 }
+
 
 export async function deleteOrder(id) {
   await axios.delete(`${API_URL}/orders/${id}`);
@@ -50,7 +55,13 @@ export async function addDeliveryman(deliveryman) {
 }
 
 export async function updateDeliveryman(id, deliveryman) {
+  try{
+    
   await axios.put(`${API_URL}/coursiers/${id}`, deliveryman);
+  }
+  catch{
+    console.error('Error updating deliveryman:', error);
+  }
 }
 
 export async function deleteDeliveryman(id) {
@@ -75,4 +86,41 @@ export async function addCategory(category) {
   return response.data;
 }
 
+export async function registerUser(user) {
+  try {
+    const response = await axios.post(`${API_URL}/users`, user);
+    return response.data;
+  } catch (error) {
+    console.error('Error registering user:', error);
+  }
+}
 
+export async function loginUser(login, password) {
+  try {
+    // On vérifie d'abord si l'utilisateur existe
+    const checkResponse = await axios.post(`${API_URL}/check/`, { login: login, password: password });
+    console.log('Response from /check/:', checkResponse);
+
+    // Si la réponse est null, on renvoie false et on peut afficher un message à l'utilisateur
+    if (checkResponse.data === null) {
+      console.error('Invalid credentials');
+      return false;
+    }
+
+    // Si l'utilisateur existe, on demande le token
+    const loginResponse = await axios.post(`${API_URL}/login`, { login: login, password: password });
+    console.log('Response from /login:', loginResponse);
+
+    if (loginResponse.data && loginResponse.data.token) {
+      localStorage.setItem('token', loginResponse.data.token);
+      localStorage.setItem('tokenMaxAge', Date.now() + loginResponse.data.maxAge);
+      return true;
+    } else {
+      console.error('Failed to log in:', loginResponse);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
+    return false;
+  }
+}

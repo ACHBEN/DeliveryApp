@@ -1,6 +1,5 @@
-// AddOrderScreen.js
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, Alert } from 'react-native';
 
 import { addOrder } from '../services/api'; // Vous devez implémenter cette fonction dans votre fichier api
 
@@ -13,6 +12,11 @@ export default function AddOrderScreen({ navigation }) {
   const [distance, setDistance] = useState('');
 
   const handleAdd = async () => {
+    if (!nameCustomer || !nameRestaurant || !adressCustomer || !adressRestaurant || !price || !distance) {
+      Alert.alert('Erreur', 'Veuillez remplir tous les champs');
+      return;
+    }
+
     await addOrder({
       name_customer: nameCustomer,
       name_restaurant: nameRestaurant,

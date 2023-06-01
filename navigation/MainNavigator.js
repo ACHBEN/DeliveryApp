@@ -15,6 +15,8 @@ import EditDeliverymanScreen from '../screens/EditDeliverymanScreen';
 import CategoryDetailScreen from '../screens/CategoryDetailScreen';
 import CategoryListScreen from '../screens/CategoryListScreen';
 import AddCategoryScreen from '../screens/AddCategoryScreen';
+import Login from '../screens/Login';
+import Signup from '../screens/Signup';
 
 
 const Stack = createStackNavigator();
@@ -23,6 +25,8 @@ export default function MainNavigator() {
   return (
     <Stack.Navigator initialRouteName="Login">
       {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="OrderList" component={OrderListScreen} />
       <Stack.Screen name="OrderDetail" component={OrderDetailScreen} />

@@ -6,15 +6,19 @@ import { fetchDeliverymen } from '../services/api'; // Vous devez implémenter c
 
 export default function DeliverymanListScreen({ navigation }) {
   const [deliverymen, setDeliverymen] = useState([]);
+
+  const loadDeliverymen = async () => {
+    const data = await fetchDeliverymen();
+    setDeliverymen(data);
+  };
   
   useEffect(() => {
-    async function loadDeliverymen() {
-      const data = await fetchDeliverymen();
-      setDeliverymen(data);
-    }
-
+    const unsubscribe = navigation.addListener('focus', loadDeliverymen);
     loadDeliverymen();
-  }, []);
+
+    // Clean up: remove the listener when this component is destroyed
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
