@@ -15,6 +15,9 @@ L'application de gestion des livraisons permet aux utilisateurs de gérer les co
 - Affichage des catégories de véhicules disponibles pour les coursiers.
 - Ajout, suppression et modification des catégories.
 
+## Captures d'écran
+
+_Incluez ici quelques captures d'écran de votre application pour donner aux utilisateurs une idée de son apparence et de son interface utilisateur._
 
 ## Prérequis
 
