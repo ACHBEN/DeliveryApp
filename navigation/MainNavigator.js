@@ -19,6 +19,7 @@ import Login from '../screens/Login';
 import Signup from '../screens/Signup';
 import AuthContext from '../AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SuperHomePage from '../screens/SuperHomePage';
 
 const Stack = createStackNavigator();
 
@@ -39,10 +40,11 @@ export default function MainNavigator() {
     }
   };
 
-  
+  SuperHomePage
 
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="SuperHomePage">
+      <Stack.Screen name="SuperHomePage" component={SuperHomePage} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />

@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState, useContext } from 'react';
 import { Button, TextInput, View, Alert, StyleSheet } from 'react-native';
 import { loginUser } from '../services/api';
@@ -51,13 +50,19 @@ const Login = ({ navigation }) => {
         secureTextEntry
       />
       <View style={styles.buttonContainer}>
-        <Button title="Login" onPress={handleLogin} style={styles.button} />
+        <Button
+          title="Login"
+          onPress={handleLogin}
+          style={styles.button}
+          color="#3F51B5"
+        />
       </View>
       <View style={styles.buttonContainer}>
         <Button
           title="Signup"
           onPress={() => navigation.navigate('Signup')}
           style={styles.button}
+          color="#3F51B5"
         />
       </View>
     </View>
@@ -85,8 +90,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   button: {
-    backgroundColor: '#4285F4',
-    color: '#FFFFFF',
+    backgroundColor: '#3F51B5',
     fontWeight: 'bold',
   },
 });
