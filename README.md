@@ -26,7 +26,7 @@ L'application de gestion des livraisons permet aux utilisateurs de gérer les co
 
 Pour exécuter le backend de l'application localement, suivez les étapes suivantes :
 
-1. Clonez ce projet sur votre machine locale.
+1. Clonez [ce projet](https://github.com/ACHBEN/DeliveryApp-Backend.git) sur votre machine locale.
 
 2. Dans le répertoire du projet, exécutez la commande suivante pour installer les dépendances :
 ```npm install```
