@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-import { addDeliveryman, fetchCategories } from '../services/api'; // Vous devez implémenter ces fonctions dans votre fichier api
+import { addDeliveryman, fetchCategories } from '../services/api';
 
 export default function AddDeliverymanScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -23,7 +23,17 @@ export default function AddDeliverymanScreen({ navigation }) {
   }, []);
 
   const handleAdd = async () => {
-    await addDeliveryman({ name, adress, recruitment_date, Num_tel, category_name });
+    if (!name || !adress || !recruitment_date || !Num_tel || !category_name) {
+      return; // Empêche l'ajout si l'un des champs est vide
+    }
+
+    await addDeliveryman({
+      name,
+      adress,
+      recruitment_date,
+      Num_tel,
+      category_name,
+    });
     navigation.navigate('DeliverymanList');
   };
 
@@ -54,14 +64,25 @@ export default function AddDeliverymanScreen({ navigation }) {
         onChangeText={setNumTel}
         placeholder="Numéro de téléphone"
       />
-      <Picker
-        selectedValue={category_name}
-        onValueChange={(itemValue) => setCategoryName(itemValue)}
-      >
-        {categories.map((category) => (
-          <Picker.Item label={category.category_name} value={category.category_name} key={category.category_name} />
-        ))}
-      </Picker>
+      <View style={styles.pickerContainer}>
+        <Text style={styles.label}>Catégorie :</Text>
+        <View style={styles.pickerWrapper}>
+          <Picker
+            style={styles.picker}
+            selectedValue={category_name}
+            onValueChange={(itemValue) => setCategoryName(itemValue)}
+          >
+            <Picker.Item label="Sélectionner une catégorie" value="" />
+            {categories.map((category) => (
+              <Picker.Item
+                label={category.category_name}
+                value={category.category_name}
+                key={category.category_name}
+              />
+            ))}
+          </Picker>
+        </View>
+      </View>
       <Button title="Ajouter" onPress={handleAdd} />
     </View>
   );
@@ -83,5 +104,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
     paddingLeft: 10,
+  },
+  pickerContainer: {
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  pickerWrapper: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    overflow: 'hidden',
+    backgroundColor: 'white',
+    height: 40,
+    justifyContent: 'center', // Centrer le texte verticalement
+    paddingHorizontal: 10, // Ajouter un peu d'espacement horizontal
+  },
+  picker: {
+    height: 40,
+    color: 'black',
   },
 });

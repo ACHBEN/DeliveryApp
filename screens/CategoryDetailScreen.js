@@ -1,6 +1,6 @@
 // CategoryDetailScreen.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { fetchCategory, deleteCategory } from '../services/api';
 
 export default function CategoryDetailScreen({ route, navigation }) {
@@ -17,8 +17,21 @@ export default function CategoryDetailScreen({ route, navigation }) {
   }, [category_name]);
 
   const handleDelete = async () => {
-    await deleteCategory(category_name);
-    navigation.goBack();
+    Alert.alert(
+      'Confirmation',
+      'Êtes-vous sûr de vouloir supprimer cette catégorie ?',
+      [
+        { text: 'Annuler', style: 'cancel' },
+        {
+          text: 'Supprimer',
+          style: 'destructive',
+          onPress: async () => {
+            await deleteCategory(category_name);
+            navigation.goBack();
+          },
+        },
+      ]
+    );
   };
 
   if (!category) {
@@ -41,9 +54,9 @@ export default function CategoryDetailScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
     backgroundColor: '#F8F8F8',
     paddingHorizontal: 20,
+    paddingTop: 50,
   },
   contentContainer: {
     flex: 1,
@@ -59,16 +72,20 @@ const styles = StyleSheet.create({
   descriptionText: {
     fontSize: 18,
     textAlign: 'center',
+    marginHorizontal: 20,
+    marginBottom: 20,
+    color: '#555',
+    lineHeight: 24,
   },
   buttonContainer: {
-    backgroundColor: '#f44336', // On utilise une couleur différente pour mettre en évidence le bouton de suppression
+    backgroundColor: '#f44336',
     marginVertical: 10,
     borderRadius: 10,
     marginHorizontal: 20,
-    padding: 10,
+    paddingVertical: 15,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#FFF',
     textAlign: 'center',
   },

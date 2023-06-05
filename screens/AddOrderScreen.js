@@ -1,7 +1,8 @@
+// AddOrderScreen.js
 import React, { useState } from 'react';
 import { View, Text, Button, TextInput, StyleSheet, Alert } from 'react-native';
 
-import { addOrder } from '../services/api'; // Vous devez implémenter cette fonction dans votre fichier api
+import { addOrder } from '../services/api';
 
 export default function AddOrderScreen({ navigation }) {
   const [nameCustomer, setNameCustomer] = useState('');
@@ -24,7 +25,6 @@ export default function AddOrderScreen({ navigation }) {
       adress_restaurant: adressRestaurant,
       price,
       distance,
-      //coursier_id est supposé être géré côté serveur
     });
     navigation.navigate('OrderList');
   };
@@ -83,7 +83,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    fontWeight: 'bold',
     marginBottom: 20,
+    textAlign: 'center',
   },
   input: {
     height: 40,

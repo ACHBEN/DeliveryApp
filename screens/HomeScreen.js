@@ -1,28 +1,21 @@
 // HomeScreen.js
-// HomeScreen.js
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeMessage}>Bienvenue dans votre application de gestion des livraisons!</Text>
       <View style={styles.buttonContainer}>
-        <Button
-          title="Voir les commandes"
-          onPress={() => navigation.navigate('OrderList')}
-          style={styles.button}
-        />
-        <Button
-          title="Voir les coursiers"
-          onPress={() => navigation.navigate('DeliverymanList')}
-          style={styles.button}
-        />
-        <Button
-          title="Voir les catégories"
-          onPress={() => navigation.navigate('CategoryList')}
-          style={styles.button}
-        />
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('OrderList')}>
+          <Text style={styles.buttonText}>Voir les commandes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('DeliverymanList')}>
+          <Text style={styles.buttonText}>Voir les coursiers</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('CategoryList')}>
+          <Text style={styles.buttonText}>Voir les catégories</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -39,7 +32,6 @@ const styles = StyleSheet.create({
   welcomeMessage: {
     fontSize: 24,
     marginBottom: 20,
-    color: '#4285F4',
     textAlign: 'center',
   },
   buttonContainer: {
@@ -51,8 +43,12 @@ const styles = StyleSheet.create({
     padding: 15,
     margin: 10,
     backgroundColor: '#4285F4',
+    borderRadius: 10,
+  },
+  buttonText: {
+    fontSize: 18,
     color: '#FFFFFF',
     fontWeight: 'bold',
-    borderRadius: 10,
+    textAlign: 'center',
   },
 });

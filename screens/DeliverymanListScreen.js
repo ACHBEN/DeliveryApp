@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { fetchDeliverymen } from '../services/api';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function DeliverymanListScreen({ navigation }) {
   const [deliverymen, setDeliverymen] = useState([]);
@@ -17,21 +18,36 @@ export default function DeliverymanListScreen({ navigation }) {
     return unsubscribe;
   }, [navigation]);
 
+  const renderDeliverymanItem = ({ item }) => (
+    <TouchableOpacity
+      style={styles.listItem}
+      onPress={() => navigation.navigate('DeliverymanDetail', { id: item.coursier_id })}
+    >
+      <Text style={styles.listItemText}>{item.name}</Text>
+    </TouchableOpacity>
+  );
+
+  const renderEmptyList = () => (
+    <View style={styles.emptyListContainer}>
+      <Text style={styles.emptyListText}>Aucun coursier disponible.</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <FlatList
         data={deliverymen}
         keyExtractor={(item) => item.coursier_id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('DeliverymanDetail', { id: item.coursier_id })}>
-            <View style={styles.listItemView}>
-              <Text style={styles.listItemText}>{item.name}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
+        renderItem={renderDeliverymanItem}
+        ListEmptyComponent={renderEmptyList}
+        contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
       />
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('AddDeliveryman')}>
-        <Text style={styles.buttonText}>Ajouter un coursier</Text>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('AddDeliveryman')}
+      >
+        <AntDesign name="plus" size={24} color="#FFF" />
       </TouchableOpacity>
     </View>
   );
@@ -40,37 +56,45 @@ export default function DeliverymanListScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
     backgroundColor: '#F8F8F8',
   },
-  listItem: {
-    flexDirection: 'row',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
-    justifyContent: 'center',
+  listContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
-  listItemView: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+  listItem: {
+    backgroundColor: '#FFF',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    marginBottom: 10,
+    borderRadius: 8,
+    elevation: 2,
   },
   listItemText: {
     fontSize: 18,
+    textAlign: 'center',
+  },
+  emptyListContainer: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  emptyListText: {
+    fontSize: 16,
+    marginBottom: 20,
     textAlign: 'center',
   },
-  buttonContainer: {
+  addButton: {
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
     backgroundColor: '#34A853',
-    marginVertical: 10,
-    borderRadius: 10,
-    marginHorizontal: 20,
-    padding: 10,
-  },
-  buttonText: {
-    fontSize: 20,
-    color: '#FFF',
-    textAlign: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2,
   },
 });

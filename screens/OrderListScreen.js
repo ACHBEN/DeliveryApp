@@ -1,7 +1,8 @@
 // OrderListScreen.js
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
-import { fetchOrders } from '../services/api'; // Vous devez implémenter cette fonction dans votre fichier api
+import { fetchOrders } from '../services/api';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function OrderListScreen({ navigation }) {
   const [orders, setOrders] = useState([]);
@@ -17,21 +18,36 @@ export default function OrderListScreen({ navigation }) {
     return unsubscribe;
   }, [navigation]);
 
+  const renderOrderItem = ({ item }) => (
+    <TouchableOpacity
+      style={styles.listItem}
+      onPress={() => navigation.navigate('OrderDetail', { id: item.order_id })}
+    >
+      <Text style={styles.listItemText}>{item.name_customer}</Text>
+    </TouchableOpacity>
+  );
+
+  const renderEmptyList = () => (
+    <View style={styles.emptyListContainer}>
+      <Text style={styles.emptyListText}>Aucune commande disponible.</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <FlatList
         data={orders}
         keyExtractor={(item) => item.order_id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('OrderDetail', { id: item.order_id })}>
-            <View style={styles.listItemView}>
-              <Text style={styles.listItemText}>{item.name_customer}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
+        renderItem={renderOrderItem}
+        ListEmptyComponent={renderEmptyList}
+        contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
       />
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('AddOrder')}>
-        <Text style={styles.buttonText}>Ajouter une commande</Text>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('AddOrder')}
+      >
+        <AntDesign name="plus" size={24} color="#FFF" />
       </TouchableOpacity>
     </View>
   );
@@ -40,37 +56,45 @@ export default function OrderListScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
     backgroundColor: '#F8F8F8',
   },
-  listItem: {
-    flexDirection: 'row',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
-    justifyContent: 'center',
+  listContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
-  listItemView: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+  listItem: {
+    backgroundColor: '#FFF',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    marginBottom: 10,
+    borderRadius: 8,
+    elevation: 2,
   },
   listItemText: {
     fontSize: 18,
+    textAlign: 'center',
+  },
+  emptyListContainer: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  emptyListText: {
+    fontSize: 16,
+    marginBottom: 20,
     textAlign: 'center',
   },
-  buttonContainer: {
+  addButton: {
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
     backgroundColor: '#34A853',
-    marginVertical: 10,
-    borderRadius: 10,
-    marginHorizontal: 20,
-    padding: 10,
-  },
-  buttonText: {
-    fontSize: 20,
-    color: '#FFF',
-    textAlign: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2,
   },
 });
