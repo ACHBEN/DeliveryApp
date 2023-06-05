@@ -45,7 +45,7 @@ const Signup = ({ navigation }) => {
         secureTextEntry
       />
       <View style={styles.buttonContainer}>
-        <Button title="Signup" onPress={register} style={styles.button} />
+        <Button title="Signup" onPress={register} style={styles.button} color="#3F51B5" />
       </View>
     </View>
   );

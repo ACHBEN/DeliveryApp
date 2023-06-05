@@ -80,7 +80,7 @@ export default function OrderDetailScreen({ route, navigation }) {
         <Text style={styles.label}>ID du coursier:</Text>
         <Text style={styles.value}>{order.coursier_id}</Text>
       </View>
-      <Button title="Modifier" onPress={() => navigation.navigate('EditOrder', { id: order.order_id })} />
+      <Button title="Modifier" onPress={() => navigation.navigate('EditOrder', { id: order.order_id })} color="#3F51B5" />
       <Button title="Supprimer" onPress={handleDelete} color="#f44336" />
     </View>
   );

@@ -1,8 +1,7 @@
-// MainNavigator.js
 import React, { useContext } from 'react';
-import { Button } from 'react-native';
+import { Button, View, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native'; // Importation de useNavigation
+import { useNavigation } from '@react-navigation/native';
 import HomeScreen from '../screens/HomeScreen';
 import OrderListScreen from '../screens/OrderListScreen';
 import OrderDetailScreen from '../screens/OrderDetailScreen';
@@ -25,40 +24,239 @@ const Stack = createStackNavigator();
 
 export default function MainNavigator() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
-  const navigation = useNavigation(); // Utilisation de useNavigation pour obtenir l'objet de navigation
+  const navigation = useNavigation();
 
   const handleLogout = async () => {
     try {
-      // Réinitialise les valeurs du token et de la date d'expiration dans AsyncStorage
       await AsyncStorage.removeItem('token');
       await AsyncStorage.removeItem('tokenMaxAge');
 
       setIsAuthenticated(false);
-      navigation.navigate('Login'); // Utilise navigation.navigate pour rediriger vers la page de connexion
+      navigation.navigate('Login');
     } catch (error) {
       console.error('Error during logout:', error);
     }
   };
 
-  SuperHomePage
-
   return (
-    <Stack.Navigator initialRouteName="SuperHomePage">
-      <Stack.Screen name="SuperHomePage" component={SuperHomePage} />
+    <Stack.Navigator
+      initialRouteName="SuperHomePage"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#3F51B5',
+        },
+        headerTintColor: '#FFF',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    >
+      <Stack.Screen
+        name="SuperHomePage"
+        component={SuperHomePage}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
-      <Stack.Screen name="Home" component={HomeScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="OrderList" component={OrderListScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="OrderDetail" component={OrderDetailScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="AddOrder" component={AddOrderScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="EditOrder" component={EditOrderScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="DeliverymanList" component={DeliverymanListScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="DeliverymanDetail" component={DeliverymanDetailScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="AddDeliveryman" component={AddDeliverymanScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="EditDeliveryman" component={EditDeliverymanScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="CategoryList" component={CategoryListScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="CategoryDetail" component={CategoryDetailScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
-      <Stack.Screen name="AddCategory" component={AddCategoryScreen} options={{ headerRight: () => (isAuthenticated && <Button title="Logout" onPress={handleLogout} />)}} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="OrderList"
+        component={OrderListScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="OrderDetail"
+        component={OrderDetailScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="AddOrder"
+        component={AddOrderScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="EditOrder"
+        component={EditOrderScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="DeliverymanList"
+        component={DeliverymanListScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="DeliverymanDetail"
+        component={DeliverymanDetailScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="AddDeliveryman"
+        component={AddDeliverymanScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="EditDeliveryman"
+        component={EditDeliverymanScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="CategoryList"
+        component={CategoryListScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="CategoryDetail"
+        component={CategoryDetailScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                />
+              </View>
+            ),
+        }}
+      />
+      <Stack.Screen
+        name="AddCategory"
+        component={AddCategoryScreen}
+        options={{
+          headerRight: () =>
+            isAuthenticated && (
+              <View style={styles.headerButton}>
+                <Button
+                  title="Logout"
+                  onPress={handleLogout}
+                  color="#0e1225"
+                  
+                />
+              </View>
+            ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  headerButton: {
+    marginHorizontal: 10,
+  },
+});

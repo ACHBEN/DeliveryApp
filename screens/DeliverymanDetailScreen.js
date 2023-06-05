@@ -61,9 +61,9 @@ export default function DeliverymanDetailScreen({ route, navigation }) {
         <Text style={styles.label}>Catégorie :</Text>
         <Text style={styles.value}>{deliveryman.category_name}</Text>
       </View>
-      <View style={styles.buttonContainer}>
-        <Button title="Modifier" onPress={() => navigation.navigate('EditDeliveryman', { coursier_id: deliveryman.coursier_id })} />
-      </View>
+      {/* <View style={styles.buttonContainer}>
+        <Button title="Modifier" onPress={() => navigation.navigate('EditDeliveryman', { coursier_id: deliveryman.coursier_id })} color="#3F51B5" />
+      </View> */}
       <View style={styles.buttonContainer}>
         <Button title="Supprimer" onPress={handleDelete} color="#f44336" />
       </View>

@@ -83,7 +83,7 @@ export default function AddDeliverymanScreen({ navigation }) {
           </Picker>
         </View>
       </View>
-      <Button title="Ajouter" onPress={handleAdd} />
+      <Button title="Ajouter" onPress={handleAdd} color="#3F51B5" />
     </View>
   );
 }

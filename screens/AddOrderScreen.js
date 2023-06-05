@@ -70,7 +70,7 @@ export default function AddOrderScreen({ navigation }) {
         placeholder="Distance"
         keyboardType="numeric"
       />
-      <Button title="Ajouter" onPress={handleAdd} />
+      <Button title="Ajouter" onPress={handleAdd} color="#3F51B5" />
     </View>
   );
 }

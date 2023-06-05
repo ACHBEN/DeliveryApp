@@ -99,7 +99,7 @@ export default function EditOrderScreen({ route, navigation }) {
         keyboardType="numeric"
       />
 
-      <Button title="Enregistrer" onPress={handleUpdate} />
+      <Button title="Enregistrer" onPress={handleUpdate} color="#3F51B5"/>
     </View>
   );
 }
