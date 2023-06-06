@@ -26,7 +26,7 @@ L'application de gestion des livraisons permet aux utilisateurs de gérer les co
 
 Pour exécuter le backend de l'application localement, suivez les étapes suivantes :
 
-1. Clonez [ce projet](https://github.com/ACHBEN/DeliveryApp-Backend.git) sur votre machine locale.
+1. Clonez [le backend](https://github.com/ACHBEN/DeliveryApp-Backend.git) sur votre machine locale.
 
 2. Dans le répertoire du projet, exécutez la commande suivante pour installer les dépendances :
 ```npm install```
@@ -51,9 +51,8 @@ Pour exécuter le backend de l'application localement, suivez les étapes suivan
 
 Pour exécuter le frontend de l'application localement, suivez les étapes suivantes :
 
-1. Dans le répertoire du projet, exécutez la commande suivante pour installer les dépendances :
-
-  ```npx expo start```
+1. Clonez ce projet dans votre machine
+2. Dans le répertoire du projet, exécutez la commande suivante pour installer les dépendances : ```npx expo start```
 
 ## API
 Vous pouvez accèder à la documentation de l'API [ici](https://app.swaggerhub.com/apis/17236_1/coursiers_commandes_categories/1.0.0)
