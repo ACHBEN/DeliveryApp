@@ -54,6 +54,9 @@ Pour exécuter le frontend de l'application localement, suivez les étapes suiva
 1. Dans le répertoire du projet, exécutez la commande suivante pour installer les dépendances :
 
   ```npx expo start```
+
+## API
+Vous pouvez accèder à la documentation de l'API [ici](https://app.swaggerhub.com/apis/17236_1/coursiers_commandes_categories/1.0.0)
   
 ## Utilisation
 
